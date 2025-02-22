@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        body {
+            background-color: #000;
+            overflow: hidden;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            color: white;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        h1 {
+            position: absolute;
+            top: 20%;
+        }
+        .cake {
+            position: relative;
+            width: 150px;
+            height: 100px;
+            background: #ffcc80;
+            border-radius: 10px;
+            box-shadow: 0 5px 0 #d4a373;
+            margin-top: 100px;
+            transition: transform 2s ease-in-out;
+        }
+        .cake.sliced {
+            transform: translateY(20px) rotateX(45deg);
+            background: #d4a373;
+        }
+        .candle {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            width: 10px;
+            height: 40px;
+            background: red;
+            transform: translateX(-50%);
+        }
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            width: 15px;
+            height: 20px;
+            background: orange;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            animation: flicker 0.2s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+            100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+        }
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 60px;
+            background: red;
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        .play-button, .knife-button {
+            position: absolute;
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #ffcc80;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 4px 0 #d4a373;
+        }
+        .play-button {
+            top: 10%;
+        }
+        .knife-button {
+            top: 30%;
+        }
+        .birthday-note {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <button class="play-button" onclick="playMusic()">Play Music</button>
+    <button class="knife-button" onclick="sliceCake()">Click to Slice the Cake</button>
+    <h1>Happy Birthday NETI ! 🎉</h1>
+    <div class="cake" id="cake">
+        <div class="candle">
+            <div class="flame"></div>
+        </div>
+    </div>
+    <div class="birthday-note" id="birthday-note">
+        According to ancient scriptures, it is believed that to make earthly beings aware of their presence, the angels once sent a little angel to earth. With your birth, you made a mother realize that having a daughter is truly a blessing, and to this day, she feels grateful to have you.<br><br>
+        With a paintbrush in hand and the magic of your charm, you’ve brought color into the lives of those around you, filling them with joy and warmth. You’ve been a source of comfort, driving away pain and sorrow, always standing by those in need. Your presence is a rare gift—your kindness, resilience, and healing touch can mend even the deepest wounds. A woman like you is one in a million, and that rarity is why you are so deeply loved and admired.
+    </div>
+    <audio id="birthday-music" loop src="euphoria.mp3" type="audio/mp3"></audio>
+    <script>
+        function playMusic() {
+            document.getElementById("birthday-music").play();
+        }
+
+        function sliceCake() {
+            let cake = document.getElementById("cake");
+            cake.classList.add("sliced");
+            setTimeout(() => {
+                document.getElementById("birthday-note").style.display = "block";
+            }, 2000);
+        }
+
+        function createBalloons() {
+            for (let i = 0; i < 10; i++) {
+                let balloon = document.createElement("div");
+                balloon.classList.add("balloon");
+                balloon.style.left = Math.random() * 100 + "vw";
+                balloon.style.animationDuration = (Math.random() * 3 + 3) + "s";
+                balloon.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                document.body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 6000);
+            }
+        }
+        setInterval(createBalloons, 1000);
+    </script>
+</body>
+</html>
